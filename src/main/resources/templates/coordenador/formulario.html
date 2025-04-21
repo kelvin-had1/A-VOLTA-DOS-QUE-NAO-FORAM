@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Coordenador</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 th:text="${coordenador.id} ? 'Editar Coordenador' : 'Novo Coordenador'"></h1>
+        
+        <form th:action="@{/coordenador}" method="post">
+            <!-- Para diferenciar POST (criação) de PUT (edição) -->
+            <input type="hidden" name="_method" value="put" th:if="${coordenador.id != null}">
+            <input type="hidden" name="id" th:value="${coordenador.id}">
+            
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" 
+                       th:value="${coordenador.nome}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="login" class="form-label">Login:</label>
+                <input type="text" class="form-control" id="login" name="login" 
+                       th:value="${coordenador.login}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" id="senha" name="senha" 
+                       th:value="${coordenador.senha}" required>                
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a th:href="@{/coordenador}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

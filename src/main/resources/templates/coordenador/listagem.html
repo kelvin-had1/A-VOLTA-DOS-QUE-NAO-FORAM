@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Coordenadores</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Lista de Coordenadores</h1>
+            <a href="/coordenador/formulario" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Novo Coordenador
+            </a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Login</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="coordenador : ${coordenadores}">
+                        <td th:text="${coordenador.nome}"></td>
+                        <td th:text="${coordenador.login}"></td>
+                        <td class="text-end">
+                            <div class="btn-group" role="group">
+                                <a th:href="@{/coordenador/formulario?id={id}(id=${coordenador.id})}" 
+                                   class="btn btn-sm btn-outline-primary"
+                                   title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                
+                                <form th:action="@{/coordenador}" method="post" class="d-inline ms-2">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input type="hidden" name="id" th:value="${coordenador.id}">
+                                    <button type="submit" 
+                                            class="btn btn-sm btn-outline-danger"
+                                            title="Excluir"
+                                            onclick="return confirm('Tem certeza que deseja excluir o coordenador \'' + '[[${coordenador.nome}]]' + '\'?')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
